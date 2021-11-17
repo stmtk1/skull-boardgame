@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import InputPlayers from "./pages/input_players";
 
 
@@ -32,7 +33,16 @@ const Index = () => {
         players.splice(index, 1);
         setState({inputPlayers: {players: [...players]}});
     };
-    return (<InputPlayers players={state.inputPlayers.players} addPlayer={addPlayer} setPlayerName={setPlayerName} deletePlayer={deletePlayer} />);
+    return (
+        <BrowserRouter>
+            <Switch>
+                <Route path="/">
+                    <InputPlayers players={state.inputPlayers.players} addPlayer={addPlayer} setPlayerName={setPlayerName} deletePlayer={deletePlayer} />
+                </Route>
+            </Switch>
+        </BrowserRouter>
+    );
+                
 }
 
 ReactDOM.render(<Index />, document.getElementById("react"));
