@@ -20419,28 +20419,50 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     }
   });
 
-  // src/input_players.jsx
-  var require_input_players = __commonJS({
-    "src/input_players.jsx"(exports, module) {
+  // src/atom/player_writer.jsx
+  var require_player_writer = __commonJS({
+    "src/atom/player_writer.jsx"(exports, module) {
       var React2 = __toModule(require_react());
       var ReactDOM2 = __toModule(require_react_dom());
-      var inputPlayers = (props) => {
-        const players = props.players;
-        const setPlayerNumber = props.setPlayerNumber;
+      var PlayerWriter = (props) => {
+        const name = props.name;
         const setPlayerName = props.setPlayerName;
-        return /* @__PURE__ */ React2.createElement("div", null, /* @__PURE__ */ React2.createElement("div", null, /* @__PURE__ */ React2.createElement("button", {
-          onClick: () => setPlayerNumber(players.length - 1)
-        }, "-1"), players.length, /* @__PURE__ */ React2.createElement("button", {
-          onClick: () => setPlayerNumber(players.length + 1)
-        }, "+1")), players.map((name, index) => /* @__PURE__ */ React2.createElement("div", {
-          key: index
-        }, /* @__PURE__ */ React2.createElement("input", {
+        const deletePlayer = props.deletePlayer;
+        const index = props.index;
+        return /* @__PURE__ */ React2.createElement("div", null, /* @__PURE__ */ React2.createElement("input", {
           type: "input",
           placeholder: "\u540D\u524D\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044",
           type: "input",
           value: name,
           onInput: (e) => setPlayerName(index, e)
-        }))));
+        }), /* @__PURE__ */ React2.createElement("button", {
+          onClick: () => deletePlayer(index)
+        }, "\u524A\u9664"));
+      };
+      module.exports = PlayerWriter;
+    }
+  });
+
+  // src/pages/input_players.jsx
+  var require_input_players = __commonJS({
+    "src/pages/input_players.jsx"(exports, module) {
+      var React2 = __toModule(require_react());
+      var ReactDOM2 = __toModule(require_react_dom());
+      var import_player_writer = __toModule(require_player_writer());
+      var inputPlayers = (props) => {
+        const players = props.players;
+        const addPlayer = props.addPlayer;
+        const setPlayerName = props.setPlayerName;
+        const deletePlayer = props.deletePlayer;
+        return /* @__PURE__ */ React2.createElement("div", null, /* @__PURE__ */ React2.createElement("div", null, players.length, "\u4EBA\u53C2\u52A0", /* @__PURE__ */ React2.createElement("button", {
+          onClick: () => addPlayer(players.length + 1)
+        }, "+1")), players.map((name, index) => /* @__PURE__ */ React2.createElement(import_player_writer.default, {
+          key: index,
+          name,
+          index,
+          setPlayerName,
+          deletePlayer
+        })));
       };
       module.exports = inputPlayers;
     }
@@ -20457,7 +20479,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   };
   var Index = () => {
     const [state, setState] = React.useState(initState);
-    const setPlayerNumber = (num) => {
+    const addPlayer = (num) => {
       const players = state.inputPlayers.players;
       if (players.length < num) {
         players.push("");
@@ -20472,10 +20494,16 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       players[index] = name;
       setState({ inputPlayers: { players: [...players] } });
     };
+    const deletePlayer = (index) => {
+      const players = state.inputPlayers.players;
+      players.splice(index, 1);
+      setState({ inputPlayers: { players: [...players] } });
+    };
     return /* @__PURE__ */ React.createElement(import_input_players.default, {
       players: state.inputPlayers.players,
-      setPlayerNumber,
-      setPlayerName
+      addPlayer,
+      setPlayerName,
+      deletePlayer
     });
   };
   ReactDOM.render(/* @__PURE__ */ React.createElement(Index, null), document.getElementById("react"));
