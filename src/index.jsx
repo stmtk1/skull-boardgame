@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import InputPlayers from "./pages/input_players";
 import ChooseCard from "./pages/choose_card";
+import Challenge from "./pages/challenge";
 import initState from "./state"
 
 const Index = () => {
@@ -11,6 +12,8 @@ const Index = () => {
         return <InputPlayers state={state} setState={setState} />;
     } else if(state.mode == "chooseCard") {
         return <ChooseCard state={state} setState={setState} />;
+    } else if(state.mode == "challenge") {
+        return <Challenge state={state} setState={setState} />;
     } else {
         return <h1>internal server error</h1>;
     }

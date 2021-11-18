@@ -21,9 +21,14 @@ const chooseCard = ({state, setState}) => {
         const tern = (state.tern + 1) % ternInfo.length;
         setState({...state, ternInfo, tern});
     };
+    const challenge = () => {
+        setState({...state, mode: "challenge"});
+    }
+    const canChallenge = ternInfo.filter(p => p.cards.played.length == 0).length == 0;
     const buttonInfo = [
         {text: "花を出す", func: useFlower, valid: player.cards.flower > 0},
         {text: "スカルを出す", func: useSkull, valid: player.cards.skull > 0},
+        {text: "チャレンジ", func: challenge, valid: canChallenge},
     ];
     const validButton = buttonInfo.filter(button => button.valid)
     return (<div>
