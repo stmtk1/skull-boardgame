@@ -28,8 +28,8 @@ const inputPlayers = ({state, setState}) => {
     };
 
     const startGame = () => {
-        const playerInfo = players.map((player) => ({name: player, cards: {flower: 3, skull: 1}}))
-        const ternInfo = players.map((player) => ({name: player, cards: {flower: 3, skull: 1}}))
+        const playerInfo = players.map((player) => ({name: player, cards: {flower: 3, skull: 1, played: []}}))
+        const ternInfo = players.map((player) => ({name: player, cards: {flower: 3, skull: 1, played: []}}))
         setState({...state, mode: "chooseCard", playerInfo, ternInfo});
     }
     return (<div>
