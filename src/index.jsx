@@ -2,47 +2,18 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import InputPlayers from "./pages/input_players";
-
-
-const initState = {
-    inputPlayers: {
-        players: [""],
-    },
-};
+import ChooseCard from "./pages/choose_card";
+import initState from "./state"
 
 const Index = () => {
     const [state, setState] = React.useState(initState);
-    const addPlayer = num => {
-        const players = state.inputPlayers.players;
-        if (players.length < num) {
-            players.push("");
-        } else {
-            players.pop();
-        }
-        setState({inputPlayers: {players: [...players]}});
-    };
-    const setPlayerName = (index, e) => {
-        const name = e.target.value;
-        const players = state.inputPlayers.players;
-        players[index] = name;
-        setState({inputPlayers: {players: [...players]}});
-    };
-
-    const deletePlayer = (index) => {
-        const players = state.inputPlayers.players;
-        players.splice(index, 1);
-        setState({inputPlayers: {players: [...players]}});
-    };
-    return (
-        <BrowserRouter>
-            <Switch>
-                <Route path="/">
-                    <InputPlayers players={state.inputPlayers.players} addPlayer={addPlayer} setPlayerName={setPlayerName} deletePlayer={deletePlayer} />
-                </Route>
-            </Switch>
-        </BrowserRouter>
-    );
-                
+    if (state.mode == "inputPlayers") {
+        return <InputPlayers state={state} setState={setState} />;
+    } else if(state.mode == "chooseCard") {
+        return <ChooseCard state={state} setState={setState} />;
+    } else {
+        return <h1>internal server error</h1>;
+    }
 }
 
 ReactDOM.render(<Index />, document.getElementById("react"));
