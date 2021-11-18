@@ -1,11 +1,7 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
-const PlayerWriter = (props) => {
-    const name = props.name;
-    const setPlayerName = props.setPlayerName;
-    const deletePlayer = props.deletePlayer;
-    const index = props.index;
+const PlayerWriter = ({name, setPlayerName, deletePlayer, index}) => {
     return (<div>
         <input
             type="input"

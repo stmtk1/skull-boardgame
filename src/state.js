@@ -4,6 +4,8 @@ const initState = {
         players: [""],
     },
     playerInfo: [],
+    ternInfo: [],
+    tern: 0,
 };
 
 module.exports = initState;

@@ -3,9 +3,7 @@ import * as ReactDOM from "react-dom"
 import PlayerWriter from "../atom/player_writer"
 import initState from "../state"
 
-const inputPlayers = (props) => {
-    const state = props.state;
-    const setState = props.setState;
+const inputPlayers = ({state, setState}) => {
     const players = state.inputPlayers.players;
     const addPlayer = num => {
         const players = state.inputPlayers.players;
@@ -31,7 +29,8 @@ const inputPlayers = (props) => {
 
     const startGame = () => {
         const playerInfo = players.map((player) => ({name: player, cards: {flower: 3, skull: 1}}))
-        setState({...state, mode: "chooseCard", playerInfo});
+        const ternInfo = players.map((player) => ({name: player, cards: {flower: 3, skull: 1}}))
+        setState({...state, mode: "chooseCard", playerInfo, ternInfo});
     }
     return (<div>
         <div>
