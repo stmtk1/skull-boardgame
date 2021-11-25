@@ -6,6 +6,15 @@ const initState = {
     playerInfo: [],
     ternInfo: [],
     tern: 0,
+    challenge: {
+        num: 0,
+        player: 0,
+        isFirst: true,
+        selected: 0,
+    },
+    result: {
+        player: 0,
+    }
 };
 
 module.exports = initState;
