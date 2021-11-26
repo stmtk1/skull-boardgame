@@ -12,6 +12,9 @@ const Challenge = ({state, setState}) => {
         challenge.selected = e.target.value;
         setState({...state, challenge});
     };
+    const isDead = player => {
+        return player.cards.flower == 0 && player.cards.skull == 0
+    };
     const player = state.ternInfo[state.tern];
     const finishChallenge = () => {
         const challenge = {
@@ -19,28 +22,36 @@ const Challenge = ({state, setState}) => {
             player: state.tern,
             isFirst: true,
             num: 0,
-        }
+        };
         const playerIndex = state.challenge.player;
         const playerInfo = state.playerInfo; 
         const includeSkull = state.ternInfo.map(player => player.cards.played.includes("skull")).reduce((a, b) => a || b);
         if (includeSkull) {
             const info = playerInfo[playerIndex];
             const lostFlower = Math.random() * (info.cards.flower + info.cards.skull) < info.cards.flower;
+            console.log(lostFlower);
+            console.log(info);
             if (lostFlower) {
                 info.cards = {flower: info.cards.flower - 1, skull: info.cards.skull, played: []};
                 playerInfo[playerIndex] = info;
             } else {
-                player.cards = {flower: info.cards.flower, skull: info.cards.skull - 1, played: []};
+                info.cards = {flower: info.cards.flower, skull: info.cards.skull - 1, played: []};
                 playerInfo[playerIndex] = info;
             }
-            state.mode = "chooseCard";
+            console.log(playerInfo.map(player => Number(!isDead(player))).reduce((a, b) => a + b, 0))
+            if (playerInfo.map(player => Number(!isDead(player))).reduce((a, b) => a + b, 0) <= 1) {
+                state.mode = "result";
+                const winPlayer = playerInfo.findIndex(player => !isDead(player))
+                state.result = { player: winPlayer };
+            } else {
+                state.mode = "chooseCard";
+            }
         } else {
             const info = playerInfo[playerIndex];
             info.win += 1;
             state.mode = "chooseCard";
             if (info.win >= 2) {
                 state.mode = "result";
-                console.log(playerIndex);
                 state.result = { player: state.tern };
             }
             playerInfo[playerIndex] = info;
@@ -48,6 +59,7 @@ const Challenge = ({state, setState}) => {
         const ternInfo = cloneDeep(playerInfo);
         setState({...state, ternInfo, playerInfo, challenge, tern: 0});
     };
+
     const addChallenge = () => {
         const prev = state.challenge;
         const selected = parseInt(prev.selected);
