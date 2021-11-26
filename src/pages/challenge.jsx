@@ -2,6 +2,7 @@ import * as React from "react"
 import * as ReactDOM from "react-dom"
 import {cloneDeep} from "lodash"
 import Select from "../atom/select"
+import isDead from "../util/isDead"
 
 const Challenge = ({state, setState}) => {
     const end = state.ternInfo.map(player => player.cards.played.length).reduce((a, b) => a + b);
@@ -11,9 +12,6 @@ const Challenge = ({state, setState}) => {
         const challenge = state.challenge;
         challenge.selected = e.target.value;
         setState({...state, challenge});
-    };
-    const isDead = player => {
-        return player.cards.flower == 0 && player.cards.skull == 0
     };
     const player = state.ternInfo[state.tern];
     const finishChallenge = () => {
@@ -29,8 +27,6 @@ const Challenge = ({state, setState}) => {
         if (includeSkull) {
             const info = playerInfo[playerIndex];
             const lostFlower = Math.random() * (info.cards.flower + info.cards.skull) < info.cards.flower;
-            console.log(lostFlower);
-            console.log(info);
             if (lostFlower) {
                 info.cards = {flower: info.cards.flower - 1, skull: info.cards.skull, played: []};
                 playerInfo[playerIndex] = info;
@@ -38,7 +34,6 @@ const Challenge = ({state, setState}) => {
                 info.cards = {flower: info.cards.flower, skull: info.cards.skull - 1, played: []};
                 playerInfo[playerIndex] = info;
             }
-            console.log(playerInfo.map(player => Number(!isDead(player))).reduce((a, b) => a + b, 0))
             if (playerInfo.map(player => Number(!isDead(player))).reduce((a, b) => a + b, 0) <= 1) {
                 state.mode = "result";
                 const winPlayer = playerInfo.findIndex(player => !isDead(player))
