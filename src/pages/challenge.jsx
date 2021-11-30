@@ -17,15 +17,16 @@ const Challenge = ({state, setState}) => {
     const finishChallenge = () => {
         const challenge = {
             selected: 0,
-            player: state.tern,
+            player: -1,
             isFirst: true,
             num: 0,
         };
-        const playerIndex = state.challenge.player;
+        const playerIndex = state.challenge.player === -1 ? state.tern : state.challenge.player;
         const playerInfo = state.playerInfo; 
         const includeSkull = state.ternInfo.map(player => player.cards.played.includes("skull")).reduce((a, b) => a || b);
         if (includeSkull) {
             const info = playerInfo[playerIndex];
+            console.log("index", playerIndex);
             const lostFlower = Math.random() * (info.cards.flower + info.cards.skull) < info.cards.flower;
             if (lostFlower) {
                 info.cards = {flower: info.cards.flower - 1, skull: info.cards.skull, played: []};
@@ -62,6 +63,7 @@ const Challenge = ({state, setState}) => {
             finishChallenge();
             return;
         }
+        console.log("tern", state.tern);
         const challenge = {
             selected: 0,
             player: state.tern,

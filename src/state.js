@@ -8,7 +8,7 @@ const initState = {
     tern: 0,
     challenge: {
         num: 0,
-        player: 0,
+        player: -1,
         isFirst: true,
         selected: 0,
     },
