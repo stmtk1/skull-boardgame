@@ -6,7 +6,7 @@
   "author": "stmtk",
   "license": "MIT",
   "scripts": {
-    "build": "esbuild src/index.jsx --bundle --outfile=dist/bundle.js"
+    "build": "node build.js"
   },
   "dependencies": {
     "esbuild": "^0.13.14",
