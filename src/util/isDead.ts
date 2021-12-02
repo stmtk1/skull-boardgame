@@ -1,4 +1,4 @@
-const isDead = player => {
+const isDead = (player) => {
     return player.cards.flower == 0 && player.cards.skull == 0
 };
 
