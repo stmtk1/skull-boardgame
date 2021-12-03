@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
 import InputPlayers from "./pages/input_players";
 import ChooseCard from "./pages/choose_card";
 import Challenge from "./pages/challenge";

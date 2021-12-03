@@ -1,4 +1,4 @@
-const initState = {
+const initState: State = {
     mode: "inputPlayers",
     inputPlayers: {
         players: [""],
@@ -10,11 +10,11 @@ const initState = {
         num: 0,
         player: -1,
         isFirst: true,
-        selected: 0,
+        selected: "0",
     },
     result: {
         player: 0,
     }
 };
 
-module.exports = initState;
+export default initState;

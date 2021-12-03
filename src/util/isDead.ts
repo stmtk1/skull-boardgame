@@ -1,5 +1,5 @@
-const isDead = (player) => {
+const isDead = (player: Player): boolean => {
     return player.cards.flower == 0 && player.cards.skull == 0
 };
 
-module.exports = isDead;
+export default isDead

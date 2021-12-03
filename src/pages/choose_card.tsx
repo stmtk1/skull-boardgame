@@ -4,8 +4,9 @@ import PlayerWriter from "../atom/player_writer"
 import PlayedCardShower from "../atom/plaed_card_shower"
 import isDead from "../util/isDead"
 import initState from "../state"
+import SetState from "../types/react"
 
-const chooseCard = ({state, setState}) => {
+const chooseCard = ({state, setState}: {state: State; setState: SetState}) => {
     const ternInfo = state.ternInfo;
     const player = ternInfo[state.tern];
     const useFlower = () => {
@@ -53,4 +54,4 @@ const chooseCard = ({state, setState}) => {
     </div>);
 }
 
-module.exports = chooseCard;
+export default chooseCard;

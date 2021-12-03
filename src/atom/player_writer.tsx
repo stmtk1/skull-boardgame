@@ -1,12 +1,18 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
-const PlayerWriter = ({name, setPlayerName, deletePlayer, index}) => {
+type Props = {
+    name: string;
+    setPlayerName: (index: number, e: React.FormEvent<HTMLInputElement>) => void;
+    deletePlayer: (index: number) => void;
+    index: number;
+    };
+
+const PlayerWriter = ({name, setPlayerName, deletePlayer, index}: Props) => {
     return (<div>
         <input
             type="input"
             placeholder="名前を入力してください"
-            type="input"
             value={ name }
             onInput={(e) => setPlayerName(index, e)}
         />
@@ -14,4 +20,4 @@ const PlayerWriter = ({name, setPlayerName, deletePlayer, index}) => {
     </div>)
 };
 
-module.exports = PlayerWriter;
+export default PlayerWriter;

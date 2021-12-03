@@ -6,10 +6,11 @@
   "author": "stmtk",
   "license": "MIT",
   "scripts": {
-    "build": "node build.js",
+    "build": "yarn type-check && node build.js",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.177",
     "@types/node": "^16.11.11",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",

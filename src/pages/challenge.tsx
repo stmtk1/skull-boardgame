@@ -3,12 +3,13 @@ import * as ReactDOM from "react-dom"
 import {cloneDeep} from "lodash"
 import Select from "../atom/select"
 import isDead from "../util/isDead"
+import SetState from "../types/react"
 
-const Challenge = ({state, setState}) => {
+const Challenge = ({state, setState}: {state: State; setState: SetState}) => {
     const end = state.ternInfo.map(player => player.cards.played.length).reduce((a, b) => a + b);
     const start = state.challenge.num;
     const options = new Array(end - start).fill(null).map((_, i) => i + 1 + start).map(i => ({ text: i.toString(), value: i }));
-    const selectChallenge = (e) => {
+    const selectChallenge: React.ChangeEventHandler<HTMLSelectElement> = e => {
         const challenge = state.challenge;
         challenge.selected = e.target.value;
         setState({...state, challenge});
@@ -16,7 +17,7 @@ const Challenge = ({state, setState}) => {
     const player = state.ternInfo[state.tern];
     const finishChallenge = () => {
         const challenge = {
-            selected: 0,
+            selected: "0",
             player: -1,
             isFirst: true,
             num: 0,
@@ -65,7 +66,7 @@ const Challenge = ({state, setState}) => {
         }
         console.log("tern", state.tern);
         const challenge = {
-            selected: 0,
+            selected: "0",
             player: state.tern,
             isFirst: false,
             num: selected,
@@ -84,7 +85,7 @@ const Challenge = ({state, setState}) => {
     const forms = [
         <div key={1}>{player.name}さんの番です</div>,
         <Select key={2} options={[{text: "初期値", value: 0}, ...options]} onChange={selectChallenge} value={state.challenge.selected} />,
-        <button key={3} onClick={addChallenge} disabled={state.challenge.selected == 0}>チャレンジ上乗せ</button>,
+        <button key={3} onClick={addChallenge} disabled={state.challenge.selected == "0"}>チャレンジ上乗せ</button>,
     ]
 
     if (!state.challenge.isFirst) {
@@ -94,4 +95,4 @@ const Challenge = ({state, setState}) => {
     return (<div>{forms}</div>);
 }
 
-module.exports = Challenge;
+export default Challenge;
