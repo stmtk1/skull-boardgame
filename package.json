@@ -6,7 +6,8 @@
   "author": "stmtk",
   "license": "MIT",
   "lint-staged": {
-      "src/**/*.{ts, tsx}": ["eslint --fix"]
+      "*.ts": ["yarn lint", "yarn type-check"],
+      "*.tsx": ["yarn lint", "yarn type-check --jsx"]
   },
   "husky": {
       "hooks": {
@@ -16,7 +17,7 @@
   "scripts": {
     "build": "yarn type-check && node build.js",
     "type-check": "tsc --noEmit",
-    "lint": "eslint src/**/*.{ts,tsx}"
+    "lint": "eslint src/**/*.{ts,tsx} --jsx"
   },
   "dependencies": {
     "@types/lodash": "^4.14.177",

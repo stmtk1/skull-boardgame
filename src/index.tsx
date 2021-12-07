@@ -8,7 +8,7 @@ import initState from "./state";
 
 const Index = () => {
     const [state, setState] = React.useState(initState);
-    if (state.mode ==  "inputPlayers") {
+    if (state.mode == "inputPlayers") {
         return <InputPlayers state={state} setState={setState} />;
     } else if(state.mode == "chooseCard") {
         return <ChooseCard state={state} setState={setState} />;
