@@ -1,3 +1,5 @@
+import { State } from "./types/state";
+
 const initState: State = {
     mode: "inputPlayers",
     inputPlayers: {

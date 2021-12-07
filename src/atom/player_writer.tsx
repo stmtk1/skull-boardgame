@@ -1,10 +1,14 @@
-import * as React from "react"
-import * as ReactDOM from "react-dom"
+import * as React from "react";
+
+// eslint-disable-next-line no-unused-vars
+type SetPlayerName = (index: number, e: React.FormEvent<HTMLInputElement>) => void;
+// eslint-disable-next-line no-unused-vars
+type DeletePlayer = (index: number) => void;
 
 type Props = {
     name: string;
-    setPlayerName: (index: number, e: React.FormEvent<HTMLInputElement>) => void;
-    deletePlayer: (index: number) => void;
+    setPlayerName: SetPlayerName;
+    deletePlayer: DeletePlayer;
     index: number;
     };
 
@@ -17,7 +21,7 @@ const PlayerWriter = ({name, setPlayerName, deletePlayer, index}: Props) => {
             onInput={(e) => setPlayerName(index, e)}
         />
         <button onClick={() => deletePlayer(index) }>削除</button>
-    </div>)
+    </div>);
 };
 
 export default PlayerWriter;

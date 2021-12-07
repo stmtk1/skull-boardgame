@@ -1,9 +1,8 @@
-import * as React from "react"
-import * as ReactDOM from "react-dom"
-import {cloneDeep} from "lodash"
-import Select from "../atom/select"
-import isDead from "../util/isDead"
-import SetState from "../types/react"
+import * as React from "react";
+import { cloneDeep } from "lodash";
+import Select from "../atom/select";
+import isDead from "../util/isDead";
+import { State, SetState } from "../types/state";
 
 const Challenge = ({state, setState}: {state: State; setState: SetState}) => {
     const end = state.ternInfo.map(player => player.cards.played.length).reduce((a, b) => a + b);
@@ -23,11 +22,10 @@ const Challenge = ({state, setState}: {state: State; setState: SetState}) => {
             num: 0,
         };
         const playerIndex = state.challenge.player === -1 ? state.tern : state.challenge.player;
-        const playerInfo = state.playerInfo; 
+        const playerInfo = state.playerInfo;
         const includeSkull = state.ternInfo.map(player => player.cards.played.includes("skull")).reduce((a, b) => a || b);
         if (includeSkull) {
             const info = playerInfo[playerIndex];
-            console.log("index", playerIndex);
             const lostFlower = Math.random() * (info.cards.flower + info.cards.skull) < info.cards.flower;
             if (lostFlower) {
                 info.cards = {flower: info.cards.flower - 1, skull: info.cards.skull, played: []};
@@ -38,7 +36,7 @@ const Challenge = ({state, setState}: {state: State; setState: SetState}) => {
             }
             if (playerInfo.map(player => Number(!isDead(player))).reduce((a, b) => a + b, 0) <= 1) {
                 state.mode = "result";
-                const winPlayer = playerInfo.findIndex(player => !isDead(player))
+                const winPlayer = playerInfo.findIndex(player => !isDead(player));
                 state.result = { player: winPlayer };
             } else {
                 state.mode = "chooseCard";
@@ -70,10 +68,10 @@ const Challenge = ({state, setState}: {state: State; setState: SetState}) => {
             player: state.tern,
             isFirst: false,
             num: selected,
-        }
+        };
         const tern = (state.tern + 1) % state.ternInfo.length;
         setState({...state, challenge, tern});
-    }
+    };
     const pass = () => {
         const tern = (state.tern + 1) % state.ternInfo.length;
         if (state.tern == state.challenge.player) {
@@ -81,18 +79,18 @@ const Challenge = ({state, setState}: {state: State; setState: SetState}) => {
         } else {
             setState({ ...state, tern });
         }
-    }
+    };
     const forms = [
         <div key={1}>{player.name}さんの番です</div>,
         <Select key={2} options={[{text: "初期値", value: 0}, ...options]} onChange={selectChallenge} value={state.challenge.selected} />,
         <button key={3} onClick={addChallenge} disabled={state.challenge.selected == "0"}>チャレンジ上乗せ</button>,
-    ]
+    ];
 
     if (!state.challenge.isFirst) {
         forms.push(<button key={4} onClick={pass}>パス</button>);
     }
 
     return (<div>{forms}</div>);
-}
+};
 
 export default Challenge;

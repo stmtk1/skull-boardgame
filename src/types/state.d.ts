@@ -1,3 +1,6 @@
+import { Player } from './player';
+import * as React from "react";
+
 interface State {
     mode: string;
     inputPlayers: {
@@ -16,3 +19,7 @@ interface State {
         player: number;
     };
 }
+
+type SetState = React.Dispatch<React.SetStateAction<State>>;
+
+export { State, SetState };

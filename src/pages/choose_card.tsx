@@ -1,10 +1,7 @@
-import * as React from "react"
-import * as ReactDOM from "react-dom"
-import PlayerWriter from "../atom/player_writer"
-import PlayedCardShower from "../atom/plaed_card_shower"
-import isDead from "../util/isDead"
-import initState from "../state"
-import SetState from "../types/react"
+import * as React from "react";
+import PlayedCardShower from "../atom/plaed_card_shower";
+import isDead from "../util/isDead";
+import { State, SetState } from "../types/state";
 
 const chooseCard = ({state, setState}: {state: State; setState: SetState}) => {
     const ternInfo = state.ternInfo;
@@ -25,10 +22,10 @@ const chooseCard = ({state, setState}: {state: State; setState: SetState}) => {
     };
     const challenge = () => {
         setState({...state, mode: "challenge"});
-    }
+    };
     const skip = () => {
-        setState({...state, tern: (state.tern + 1) % ternInfo.length})
-    }
+        setState({...state, tern: (state.tern + 1) % ternInfo.length});
+    };
     const canChallenge = ternInfo.filter((p, i) => !isDead(state.playerInfo[i]) && p.cards.played.length == 0).length == 0;
     const buttonInfo = [
         {text: "花を出す", func: useFlower, valid: player.cards.flower > 0},
@@ -39,9 +36,9 @@ const chooseCard = ({state, setState}: {state: State; setState: SetState}) => {
         return (<div>
             <div>{player.name}さんは手札がないのでスキップされます</div>
             <button onClick={skip}>スキップ</button>
-        </div>)
+        </div>);
     }
-    const validButton = buttonInfo.filter(button => button.valid)
+    const validButton = buttonInfo.filter(button => button.valid);
     return (<div>
         <div>{player.name}さんの番です</div>
         <div>花{player.cards.flower}枚</div>
@@ -52,6 +49,6 @@ const chooseCard = ({state, setState}: {state: State; setState: SetState}) => {
         </div>
         <PlayedCardShower ternInfo={ternInfo} />
     </div>);
-}
+};
 
 export default chooseCard;

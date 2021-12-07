@@ -1,8 +1,7 @@
-import * as React from "react"
-import * as ReactDOM from "react-dom"
-import PlayerWriter from "../atom/player_writer"
-import initState from "../state"
-import SetState from "../types/react"
+import * as React from "react";
+import PlayerWriter from "../atom/player_writer";
+import { SetState, State } from "../types/state";
+import { Player } from '../types/player';
 
 const inputPlayers = ({state, setState}: {state: State; setState: SetState}) => {
     const players = state.inputPlayers.players;
@@ -30,10 +29,10 @@ const inputPlayers = ({state, setState}: {state: State; setState: SetState}) => 
     };
 
     const startGame = () => {
-        const playerInfo = players.map((player: string): Player => ({name: player, win: 0,cards: {flower: 3, skull: 1, played: []}}))
-        const ternInfo = players.map((player: string): Player => ({name: player, win: 0, cards: {flower: 3, skull: 1, played: []}}))
+        const playerInfo = players.map((player: string): Player => ({name: player, win: 0,cards: {flower: 3, skull: 1, played: []}}));
+        const ternInfo = players.map((player: string): Player => ({name: player, win: 0, cards: {flower: 3, skull: 1, played: []}}));
         setState({...state, mode: "chooseCard", playerInfo, ternInfo});
-    }
+    };
     return (<div>
         <div>
             { players.length }人参加
@@ -44,6 +43,6 @@ const inputPlayers = ({state, setState}: {state: State; setState: SetState}) => 
         }
         <button onClick={startGame}>開始する</button>
     </div>);
-}
+};
 
 export default inputPlayers;
